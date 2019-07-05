@@ -9,7 +9,7 @@
         </b-col>
 
         <b-col class="product-info" sm="8">
-          <b-jumbotron :header="product" :lead="description">
+          <b-jumbotron :header="title" :lead="description">
             <b-row>
               <b-badge v-show="onSale" variant="primary">On Sale!</b-badge>
             </b-row>
@@ -53,8 +53,8 @@
               </b-row>
               <b-row>
                 <b-dropdown id="sizeChoice" :text="chosenSize" class="m-md-2" variant="primary">
-                  <span v-for="size in sizes" :key="size.id">
-                    <b-dropdown-item @click="chooseSize(size.size)">{{ size.size }}</b-dropdown-item>
+                  <span >
+                    <b-dropdown-item v-for="size in sizes" :key="size.id" @click="chooseSize(size.size)">{{ size.size }}</b-dropdown-item>
                   </span>
                 </b-dropdown>
               </b-row>
@@ -88,12 +88,11 @@
 export default {
   data() {
     return {
+      'brand': 'Dan\'s',
       'product': 'Socks',
       'description': 'The best shoes ever',
       'chosenVariant': 0,
       'chosenSize': 'Medium',
-      'inventory': 17,
-      'onSale': true,
       'details': [
         {
           'id': 0,
@@ -108,17 +107,20 @@ export default {
         {
           'id': 0,
           'color': 'green',
-          'img': 'https://cdn.shopify.com/s/files/1/0920/4808/products/1-green_800x.jpg?v=1536352096'
+          'img': 'https://cdn.shopify.com/s/files/1/0920/4808/products/1-green_800x.jpg?v=1536352096',
+          'inventory': 6
         },
         {
           'id': 1,
           'color': 'blue',
-          'img': 'https://cdn.shopify.com/s/files/1/1278/9255/products/SM-VANNUCCI-V1126RB.jpg?v=1484940185'
+          'img': 'https://cdn.shopify.com/s/files/1/1278/9255/products/SM-VANNUCCI-V1126RB.jpg?v=1484940185',
+          'inventory': 0
         },
         {
           'id': 2,
           'color': 'red',
-          'img': 'https://images-na.ssl-images-amazon.com/images/I/71BVuXCWmfL._UL1500_.jpg'
+          'img': 'https://images-na.ssl-images-amazon.com/images/I/71BVuXCWmfL._UL1500_.jpg',
+          'inventory': 2
         }
       ],
       'sizes': [
@@ -142,6 +144,15 @@ export default {
   computed: {
     img() {
       return this.variants[this.chosenVariant].img
+    },
+    title() {
+      return this.brand + ' ' + this.product
+    },
+    inventory() {
+      return this.variants[this.chosenVariant].inventory
+    },
+    onSale() {
+      return this.brand === "Dan's"
     }
   },
 
