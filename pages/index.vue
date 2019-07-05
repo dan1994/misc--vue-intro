@@ -59,17 +59,22 @@
                 </b-dropdown>
               </b-row>
             </b-card>
+
+            <b-card>
+              <b-row>
+                <b-col>
+                  <b-button variant="primary" :disabled="inventory == 0" @click="addToCart">Add to cart</b-button>
+                </b-col>
+                <b-col>
+                  <b-button variant="primary" :disabled="cart == 0" @click="removeFromCart">Remove from cart</b-button>
+                </b-col>
+              </b-row>
+            </b-card>
           </b-jumbotron>
         </b-col>
 
         <!-- Cart -->
         <b-col>
-          <b-row>
-            <b-button variant="primary" :disabled="inventory == 0" @click="addToCart">Add to cart</b-button>
-          </b-row>
-          <b-row>
-            <b-button variant="primary" :disabled="cart == 0" @click="removeFromCart">Remove from cart</b-button>
-          </b-row>
           <b-row>
             <b-card>Cart <b-badge pill variant="primary">{{ cart }}</b-badge></b-card>
           </b-row>
