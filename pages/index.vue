@@ -1,39 +1,168 @@
 <template>
   <div class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        app
-      </h1>
-      <h2 class="subtitle">
-        My slick Nuxt.js project
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
-    </div>
+    <div class="nav-bar" />
+
+    <b-container fluid class="product">
+      <b-row>
+        <b-col class="product-img">
+          <b-card-img :src="img" :alt="product" />
+        </b-col>
+
+        <b-col class="product-info">
+          <b-jumbotron :header="product" :lead="description">
+            <b-row>
+              <b-badge v-show="onSale" variant="primary">On Sale!</b-badge>
+            </b-row>
+            <b-row>
+              <p v-if="inventory > 5">
+                {{ inventory }} In stock
+              </p>
+              <p v-else-if="inventory > 0">
+                Only {{ inventory }} left
+              </p>
+              <p v-else>
+                Out of stock
+              </p>
+            </b-row>
+
+            <!-- Details -->
+            <b-card>
+              <b-row>
+                <h2>Details<b-button v-b-toggle.collapse-1 variant="light">|</b-button></h2>
+              </b-row>
+              <b-row>
+                <b-collapse id="collapse-1" class="mt-2">
+                  <b-card>
+                    <b-list-group>
+                      <b-list-group-item v-for="detail in details" :key="detail.id">{{ detail.content }}</b-list-group-item>
+                    </b-list-group>
+                  </b-card>
+                </b-collapse>
+              </b-row>
+            </b-card>
+
+            <!-- Variants -->
+            <b-card>
+              <b-row>
+                <h2>Colors</h2>
+              </b-row>
+              <b-row>
+                <b-list-group horizontal="md">
+                  <span v-for="variant in variants" :key="variant.id">
+                    <b-list-group-item :active="chosenVariant == variant.id" button @mouseover="chooseVariant(variant.id)">{{ variant.color }}</b-list-group-item>
+                  </span>
+                </b-list-group>
+              </b-row>
+            </b-card>
+
+            <b-card>
+              <b-row>
+                <h2>Size</h2>
+              </b-row>
+              <b-row>
+                <b-dropdown id="sizeChoice" :text="chosenSize" class="m-md-2" variant="primary">
+                  <span v-for="size in sizes" :key="size.id">
+                    <b-dropdown-item @click="chooseSize(size.size)">{{ size.size }}</b-dropdown-item>
+                  </span>
+                </b-dropdown>
+              </b-row>
+            </b-card>
+          </b-jumbotron>
+        </b-col>
+
+        <!-- Cart -->
+        <b-col>
+          <b-row>
+            <b-button variant="primary" @click="addToCart">Add to cart</b-button>
+          </b-row>
+          <b-row>
+            <b-button variant="primary" @click="removeFromCart">Remove from cart</b-button>
+          </b-row>
+          <b-row>
+            <b-card>Cart <b-badge pill variant="primary">{{ cart }}</b-badge></b-card>
+          </b-row>
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-
 export default {
-  components: {
-    Logo
+  data() {
+    return {
+      'product': 'Socks',
+      'description': 'The best shoes ever',
+      'chosenVariant': 0,
+      'chosenSize': 'Medium',
+      'inventory': 17,
+      'onSale': true,
+      'details': [
+        {
+          'id': 0,
+          'content': 'High quality'
+        },
+        {
+          'id': 1,
+          'content': 'Great for winters!'
+        }
+      ],
+      'variants': [
+        {
+          'id': 0,
+          'color': 'green',
+          'img': 'https://cdn.shopify.com/s/files/1/0920/4808/products/1-green_800x.jpg?v=1536352096'
+        },
+        {
+          'id': 1,
+          'color': 'blue',
+          'img': 'https://cdn.shopify.com/s/files/1/1278/9255/products/SM-VANNUCCI-V1126RB.jpg?v=1484940185'
+        },
+        {
+          'id': 2,
+          'color': 'red',
+          'img': 'https://images-na.ssl-images-amazon.com/images/I/71BVuXCWmfL._UL1500_.jpg'
+        }
+      ],
+      'sizes': [
+        {
+          'id': 0,
+          'size': 'Small'
+        },
+        {
+          'id': 1,
+          'size': 'Medium'
+        },
+        {
+          'id': 2,
+          'size': 'Large'
+        }
+      ],
+      'cart': 0
+    }
+  },
+
+  computed: {
+    img() {
+      return this.variants[this.chosenVariant].img
+    }
+  },
+
+  methods: {
+    addToCart() {
+      this.cart++
+    },
+    removeFromCart() {
+      if(this.cart > 0) {
+        this.cart--
+      }
+    },
+    chooseVariant(id) {
+      this.chosenVariant = id
+    },
+    chooseSize(size) {
+      this.chosenSize = size
+    }
   }
 }
 </script>
@@ -45,7 +174,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
+  text-align: left;
 }
 
 .title {
