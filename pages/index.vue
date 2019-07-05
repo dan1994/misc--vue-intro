@@ -1,14 +1,14 @@
 <template>
-  <div class="container">
+  <div>
     <div class="nav-bar" />
 
     <b-container fluid class="product">
       <b-row>
-        <b-col class="product-img">
+        <b-col class="product-img" sm="3">
           <b-card-img :src="img" :alt="product" />
         </b-col>
 
-        <b-col class="product-info">
+        <b-col class="product-info" sm="8">
           <b-jumbotron :header="product" :lead="description">
             <b-row>
               <b-badge v-show="onSale" variant="primary">On Sale!</b-badge>
@@ -74,7 +74,7 @@
         </b-col>
 
         <!-- Cart -->
-        <b-col>
+        <b-col sm="1">
           <b-row>
             <b-card>Cart <b-badge pill variant="primary">{{ cart }}</b-badge></b-card>
           </b-row>
