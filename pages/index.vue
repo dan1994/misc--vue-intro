@@ -14,15 +14,9 @@
               <b-badge v-show="onSale" variant="primary">On Sale!</b-badge>
             </b-row>
             <b-row>
-              <p v-if="inventory > 5">
-                {{ inventory }} In stock
-              </p>
-              <p v-else-if="inventory > 0">
-                Only {{ inventory }} left
-              </p>
-              <p v-else>
-                Out of stock
-              </p>
+              <p v-if="inventory > 5">{{ inventory }} In stock</p>
+              <p v-else-if="inventory > 0">Only {{ inventory }} left</p>
+              <p v-else :class="{ outOfStock: (inventory == 0) }">Out of stock</p>
             </b-row>
 
             <!-- Details -->
@@ -48,9 +42,7 @@
               </b-row>
               <b-row>
                 <b-list-group horizontal="md">
-                  <span v-for="variant in variants" :key="variant.id">
-                    <b-list-group-item :active="chosenVariant == variant.id" button @mouseover="chooseVariant(variant.id)">{{ variant.color }}</b-list-group-item>
-                  </span>
+                  <b-list-group-item v-for="variant in variants" :key="variant.id" class="color-box" :style="{ backgroundColor: variant.color }" @mouseover="chooseVariant(variant.id)" />
                 </b-list-group>
               </b-row>
             </b-card>
@@ -73,10 +65,10 @@
         <!-- Cart -->
         <b-col>
           <b-row>
-            <b-button variant="primary" @click="addToCart">Add to cart</b-button>
+            <b-button variant="primary" :disabled="inventory == 0" @click="addToCart">Add to cart</b-button>
           </b-row>
           <b-row>
-            <b-button variant="primary" @click="removeFromCart">Remove from cart</b-button>
+            <b-button variant="primary" :disabled="cart == 0" @click="removeFromCart">Remove from cart</b-button>
           </b-row>
           <b-row>
             <b-card>Cart <b-badge pill variant="primary">{{ cart }}</b-badge></b-card>
@@ -151,11 +143,11 @@ export default {
   methods: {
     addToCart() {
       this.cart++
+      this.inventory--
     },
     removeFromCart() {
-      if(this.cart > 0) {
-        this.cart--
-      }
+      this.cart--
+      this.inventory++
     },
     chooseVariant(id) {
       this.chosenVariant = id
@@ -197,5 +189,9 @@ export default {
 
 .links {
   padding-top: 15px;
+}
+
+.outOfStock {
+  text-decoration: line-through;
 }
 </style>
