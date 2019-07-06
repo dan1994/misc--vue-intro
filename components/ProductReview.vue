@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-jumbotron lead="Write a Review">
-      <b-form v-if="show" @submit="onSubmit" @reset="onReset">
+      <b-form @submit.prevent="onSubmit">
         <b-form-group id="input-group-1" label="Title" label-for="review_title" description="Give your review an indicative title">
           <b-form-input id="review_title" v-model="review.title" required placeholder="Title" />
         </b-form-group>
@@ -10,10 +10,9 @@
           <b-form-textarea id="review_text" v-model="review.text" placeholder="In my opinion..." rows="3" max-rows="6" />
         </b-form-group>
 
-        <ProductRating />
+        <ProductRating :resetRating="resetRating" @setRating="setRating" />
 
         <b-button type="submit" variant="success">Submit</b-button>
-        <b-button type="reset" variant="danger">Reset</b-button>
       </b-form>
     </b-jumbotron>
   </div>
@@ -31,28 +30,24 @@ export default {
     return {
       review: {
         title: '',
-        text: ''
+        text: '',
+        rating: 0
       },
-      show: true
+      resetRating: false
     }
   },
 
   methods: {
-    onSubmit(evt) {
-      evt.preventDefault()
-      alert(JSON.stringify(this.form))
+    setRating(rating) {
+      this.resetRating = false
+      this.review.rating = rating
     },
-
-    onReset(evt) {
-      evt.preventDefault()
-      // Reset our form values
+    onSubmit() {
+      this.$emit('submitReview', this.review)
+      alert(JSON.stringify(this.review))
       this.review.title = ''
       this.review.text = ''
-      // Trick to reset/clear native browser form validation state
-      this.show = false
-      this.$nextTick(() => {
-        this.show = true
-      })
+      this.resetRating = true
     }
   }
 }

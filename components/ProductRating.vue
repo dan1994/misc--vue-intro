@@ -2,7 +2,7 @@
   <div>
     <FontAwesomeIcon
       v-for="i in [0, 1, 2, 3, 4]"
-      :key="i - 1"
+      :key="i"
       :icon="[solid[i], 'star']"
       @mouseover="setRatingPreview(i + 1)"
       @mouseleave="unsetRatingPreview"
@@ -24,9 +24,15 @@ export default {
     FontAwesomeIcon
   },
 
+  props: {
+    'resetRating': {
+      type: Boolean,
+      default: false
+    }
+  },
+
   data() {
     return {
-      'rating': 0,
       'ratingPreview': 0
     }
   },
@@ -34,11 +40,17 @@ export default {
   computed: {
     solid() {
       var solidArr = []
-      solidArr[0] = 'far'
       for(var i in [0, 1, 2, 3, 4]) {
         solidArr[i] = i < this.ratingPreview ? 'fas' : 'far'
       }
       return solidArr
+    }
+  },
+
+  watch: {
+    resetRating() {
+      this.setRating(0)
+      this.unsetRatingPreview()
     }
   },
 
@@ -51,6 +63,7 @@ export default {
     },
     setRating(rating) {
       this.rating = rating
+      this.$emit('setRating', rating)
     }
   }
 }
