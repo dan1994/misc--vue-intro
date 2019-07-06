@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-jumbotron lead="Write a Review">
+    <b-jumbotron header="Write a Review" lead="This will help other customers to choose wisely">
       <b-form @submit.prevent="onSubmit">
         <b-form-group id="input-group-1" label="Title" label-for="reviewTitle" description="Give your review an indicative title">
           <b-form-input id="reviewTitle" v-model="review.title" required placeholder="Title" />
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import ProductRating from '~/components/ProductRating'
+import ProductRating from '~/components/reviews/ProductRating'
 
 export default {
   components: {
@@ -45,7 +45,7 @@ export default {
       review: {
         title: '',
         text: '',
-        recomended: false,
+        recomended: true,
         rating: 0
       },
       resetRating: false

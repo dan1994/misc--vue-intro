@@ -80,17 +80,8 @@
         </b-col>
       </b-row>
 
-      <ProductReview @submitReview="submitReview" />
+      <ProductReviewsArea />
 
-      <b-jumbotron lead="Reviews">
-        <p v-if="reviews.length === 0">No reviews yet</p>
-        <b-card v-else v-for="review in reviews" :key="review.length" :title="review.title">
-          <p>Rating: {{ review.rating }}</p>
-          <p v-if="review.recomended">Recomended by the customer :)</p>
-          <p v-else>Not recomended by the customer :(</p>
-          <p>{{ review.text }}</p>
-        </b-card>
-      </b-jumbotron>
     </b-container>
   </div>
 </template>
@@ -100,14 +91,14 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-import ProductReview from '~/components/ProductReview'
+import ProductReviewsArea from '~/components/reviews/ProductReviewsArea'
 
 library.add(faChevronDown, faChevronUp)
 
 export default {
   components: {
     FontAwesomeIcon,
-    ProductReview
+    ProductReviewsArea
   },
   props: {
     'pO': {
@@ -131,8 +122,7 @@ export default {
       'chosenVariant': 0,
       'chosenSize': 'Medium',
       'variants': variants,
-      'showCollapse': false,
-      'reviews': []
+      'showCollapse': false
     }
   },
 
@@ -173,9 +163,6 @@ export default {
     },
     chooseSize(size) {
       this.chosenSize = size
-    },
-    submitReview(review) {
-      this.reviews.push(review)
     }
   }
 }
