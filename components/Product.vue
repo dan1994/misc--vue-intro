@@ -23,10 +23,14 @@
             <!-- Details -->
             <b-card>
               <b-row>
-                <h2>Details<b-button v-b-toggle.collapse-1 variant="light">|</b-button></h2>
+                <h2>Details
+                  <b-button :class="showCollapse ? 'collapsed' : null" :aria-expanded="showCollapse ? 'true' : 'false'" aria-controls="collapse-1" variant="light" @click="showCollapse = !showCollapse">
+                    <FontAwesomeIcon :icon="['fas', showCollapse ? 'chevron-up' : 'chevron-down']" />
+                  </b-button>
+                </h2>
               </b-row>
               <b-row>
-                <b-collapse id="collapse-1" class="mt-2">
+                <b-collapse id="collapse-1" v-model="showCollapse" class="mt-2">
                   <b-card>
                     <b-list-group>
                       <b-list-group-item v-for="detail in pO.details" :key="detail.id">{{ detail.content }}</b-list-group-item>
@@ -81,10 +85,17 @@
 </template>
 
 <script>
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
 import ProductReview from '~/components/ProductReview'
+
+library.add(faChevronDown, faChevronUp)
 
 export default {
   components: {
+    FontAwesomeIcon,
     ProductReview
   },
   props: {
@@ -108,7 +119,8 @@ export default {
     return {
       'chosenVariant': 0,
       'chosenSize': 'Medium',
-      'variants': variants
+      'variants': variants,
+      'showCollapse': false
     }
   },
 
