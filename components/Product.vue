@@ -33,7 +33,7 @@
                 <b-collapse id="collapse-1" v-model="showCollapse" class="mt-2">
                   <b-card>
                     <b-list-group>
-                      <b-list-group-item v-for="detail in pO.details" :key="detail.id">{{ detail.content }}</b-list-group-item>
+                      <b-list-group-item v-for="(detail, i) in pO.details" :key="i">{{ detail }}</b-list-group-item>
                     </b-list-group>
                   </b-card>
                 </b-collapse>
@@ -47,7 +47,7 @@
               </b-row>
               <b-row>
                 <b-list-group horizontal="md">
-                  <b-list-group-item v-for="variant in variants" :key="variant.id" class="color-box" :style="{ backgroundColor: variant.color }" @mouseover="chooseVariant(variant.id)" />
+                  <b-list-group-item v-for="(variant, i) in variants" :key="i" class="color-box" :style="{ backgroundColor: variant.color }" @mouseover="chooseVariant(i)" />
                 </b-list-group>
               </b-row>
             </b-card>
@@ -58,7 +58,7 @@
               </b-row>
               <b-row>
                 <b-dropdown id="sizeChoice" :text="chosenSize" class="m-md-2" variant="primary">
-                  <b-dropdown-item v-for="size in pO.sizes" :key="size.id" @click="chooseSize(size.size)">{{ size.size }}</b-dropdown-item>
+                  <b-dropdown-item v-for="(size, i) in pO.sizes" :key="i" @click="chooseSize(size)">{{ size }}</b-dropdown-item>
                 </b-dropdown>
               </b-row>
             </b-card>

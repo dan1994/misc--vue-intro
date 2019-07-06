@@ -33,48 +33,30 @@ export default {
         'product': 'Socks',
         'description': 'The best shoes ever',
         'details': [
-          {
-            'id': 0,
-            'content': 'High quality'
-          },
-          {
-            'id': 1,
-            'content': 'Great for winters!'
-          }
+          'High quality',
+          'Great for winters!'
         ],
         'variants': [
           {
-            'id': 0,
             'color': 'green',
             'img': 'https://cdn.shopify.com/s/files/1/0920/4808/products/1-green_800x.jpg?v=1536352096',
             'inventory': 6
           },
           {
-            'id': 1,
             'color': 'blue',
             'img': 'https://cdn.shopify.com/s/files/1/1278/9255/products/SM-VANNUCCI-V1126RB.jpg?v=1484940185',
             'inventory': 0
           },
           {
-            'id': 2,
             'color': 'red',
             'img': 'https://images-na.ssl-images-amazon.com/images/I/71BVuXCWmfL._UL1500_.jpg',
             'inventory': 2
           }
         ],
         'sizes': [
-          {
-            'id': 0,
-            'size': 'Small'
-          },
-          {
-            'id': 1,
-            'size': 'Medium'
-          },
-          {
-            'id': 2,
-            'size': 'Large'
-          }
+          'Small',
+          'Medium',
+          'Large'
         ]
       }
     }
@@ -82,11 +64,9 @@ export default {
 
   methods: {
     addToCart(id) {
-      console.log('Added ' + id)
       this.cart.push(id)
     },
     removeFromCart(id) {
-      console.log('Removed ' + id)
       this.cart.pop(id)
     }
   }
@@ -95,7 +75,7 @@ export default {
 
 <style>
 .container {
-  margin: 0 auto;
+  margin: auto;
   min-height: 100vh;
   display: flex;
   justify-content: center;
