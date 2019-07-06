@@ -84,8 +84,8 @@
 
       <b-jumbotron lead="Reviews">
         <p v-if="reviews.length === 0">No reviews yet</p>
-        <b-card v-else v-for="review in reviews" :key="review.length">
-          {{ review }}
+        <b-card v-else v-for="review in reviews" :key="review.length" :title="review.title + ' (' + review.rating + ')'">
+          {{ review.text }}
         </b-card>
       </b-jumbotron>
     </b-container>
