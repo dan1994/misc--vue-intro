@@ -14,7 +14,7 @@
           <b-form-radio-group v-model="review.recomended" :options="recomendedOpts" plain stacked required />
         </b-form-group>
 
-        <ProductRating :resetRating="resetRating" @setRating="setRating" />
+        <ProductRating :rating="review.rating" @setRating="setRating" />
 
         <b-button type="submit" variant="success">Submit</b-button>
       </b-form>
@@ -47,21 +47,19 @@ export default {
         text: '',
         recomended: true,
         rating: 0
-      },
-      resetRating: false
+      }
     }
   },
 
   methods: {
     setRating(rating) {
-      this.resetRating = false
       this.review.rating = rating
     },
     onSubmit() {
       this.$emit('submitReview', JSON.parse(JSON.stringify(this.review)))
       this.review.title = ''
       this.review.text = ''
-      this.resetRating = true
+      this.review.rating = 0
     }
   }
 }

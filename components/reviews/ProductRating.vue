@@ -4,9 +4,9 @@
       v-for="i in [0, 1, 2, 3, 4]"
       :key="i"
       :icon="[solid[i], 'star']"
-      @mouseover="setRatingPreview(i + 1)"
-      @mouseleave="unsetRatingPreview"
-      @click="setRating(i + 1)"
+      @mouseover="ratingPreview = i + 1"
+      @mouseleave="ratingPreview = rating"
+      @click="$emit('setRating', i + 1)"
     />
   </div>
 </template>
@@ -25,15 +25,16 @@ export default {
   },
 
   props: {
-    'resetRating': {
-      type: Boolean,
-      default: false
+    'rating': {
+      type: Number,
+      default: 0
     }
   },
 
   data() {
     return {
-      'ratingPreview': 0
+      ratingPreview: 0,
+      lastRating: 0
     }
   },
 
@@ -48,22 +49,8 @@ export default {
   },
 
   watch: {
-    resetRating() {
-      this.setRating(0)
-      this.unsetRatingPreview()
-    }
-  },
-
-  methods: {
-    setRatingPreview(rating) {
-      this.ratingPreview = rating
-    },
-    unsetRatingPreview() {
-      this.ratingPreview = this.rating
-    },
-    setRating(rating) {
-      this.rating = rating
-      this.$emit('setRating', rating)
+    rating(r) {
+      this.ratingPreview = r
     }
   }
 }
