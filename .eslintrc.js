@@ -15,6 +15,8 @@ module.exports = {
   rules: {
     'vue/singleline-html-element-content-newline': 'off',
     'vue/multiline-html-element-content-newline': 'off',
-    'keyword-spacing': 'off'
+    'keyword-spacing': 'off',
+    'no-var': 'off',
+    'no-console': 'off'
   }
 }
