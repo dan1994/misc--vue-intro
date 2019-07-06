@@ -2,12 +2,16 @@
   <div>
     <b-jumbotron lead="Write a Review">
       <b-form @submit.prevent="onSubmit">
-        <b-form-group id="input-group-1" label="Title" label-for="review_title" description="Give your review an indicative title">
-          <b-form-input id="review_title" v-model="review.title" required placeholder="Title" />
+        <b-form-group id="input-group-1" label="Title" label-for="reviewTitle" description="Give your review an indicative title">
+          <b-form-input id="reviewTitle" v-model="review.title" required placeholder="Title" />
         </b-form-group>
 
-        <b-form-group id="input-group-2" label="Your Review" label-for="review_text">
-          <b-form-textarea id="review_text" v-model="review.text" placeholder="In my opinion..." rows="3" max-rows="6" />
+        <b-form-group id="input-group-2" label="Your Review" label-for="reviewText">
+          <b-form-textarea id="reviewText" v-model="review.text" placeholder="In my opinion..." rows="3" max-rows="6" />
+        </b-form-group>
+
+        <b-form-group label="Would you recomend this product?">
+          <b-form-radio-group v-model="review.recomended" :options="recomendedOpts" plain stacked required />
         </b-form-group>
 
         <ProductRating :resetRating="resetRating" @setRating="setRating" />
@@ -28,9 +32,20 @@ export default {
 
   data() {
     return {
+      recomendedOpts: [
+        {
+          text: 'Sure Would!',
+          value: true
+        },
+        {
+          text: 'Not So Much...',
+          value: false
+        }
+      ],
       review: {
         title: '',
         text: '',
+        recomended: false,
         rating: 0
       },
       resetRating: false
