@@ -4,7 +4,8 @@
     <b-container fluid>
       <b-row>
         <b-col sm="11">
-          <Product :pO="productObj" :cart="cart" />
+          <Product :pO="productObj" :premium="true" />
+          <Product :pO="productObj" :premium="false" />
         </b-col>
         <!-- Cart -->
         <b-col sm="1">

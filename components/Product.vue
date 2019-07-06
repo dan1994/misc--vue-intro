@@ -12,6 +12,9 @@
               <b-badge v-show="onSale" variant="primary">On Sale!</b-badge>
             </b-row>
             <b-row>
+              Shipping: {{ shipping }}
+            </b-row>
+            <b-row>
               <p v-if="inventory > 5">{{ inventory }} In stock</p>
               <p v-else-if="inventory > 0">Only {{ inventory }} left</p>
               <p v-else :class="{ outOfStock: (inventory === 0) }">Out of stock</p>
@@ -79,8 +82,9 @@
 <script>
 export default {
   props: [
-    'pO'
+    'pO', 'premium'
   ],
+
   data() {
     // Add a local cart property to each variant
     var variants = this.pO.variants
@@ -107,6 +111,12 @@ export default {
     },
     onSale() {
       return this.pO.brand === "Dan's"
+    },
+    shipping() {
+      if(this.premium) {
+        return 'Free'
+      }
+      return '2.99$'
     }
   },
 
