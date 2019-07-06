@@ -17,6 +17,7 @@ module.exports = {
     'vue/multiline-html-element-content-newline': 'off',
     'keyword-spacing': 'off',
     'no-var': 'off',
-    'no-console': 'off'
+    'no-console': 'off',
+    'vue/attribute-hyphenation': 'off'
   }
 }

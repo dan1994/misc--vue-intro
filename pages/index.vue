@@ -1,16 +1,15 @@
 <template>
   <div>
-    <div class="nav-bar" />
     <b-container fluid>
       <b-row>
         <b-col sm="11">
-          <Product :pO="productObj" :premium="true" />
-          <Product :pO="productObj" :premium="false" />
+          <Product :pO="productObj" :premium="true" @addToCart="addToCart" @removeFromCart="removeFromCart" />
+          <Product :pO="productObj" :premium="false" @addToCart="addToCart" @removeFromCart="removeFromCart" />
         </b-col>
         <!-- Cart -->
         <b-col sm="1">
           <b-row>
-            <b-card>Cart <b-badge pill variant="primary">{{ cart }}</b-badge></b-card>
+            <b-card>Cart <b-badge pill variant="primary">{{ cart.length }}</b-badge></b-card>
           </b-row>
         </b-col>
       </b-row>
@@ -27,8 +26,9 @@ export default {
   },
   data() {
     return {
-      'cart': 0,
+      'cart': [],
       'productObj': {
+        'baseId': 1443,
         'brand': 'Dan\'s',
         'product': 'Socks',
         'description': 'The best shoes ever',
@@ -80,35 +80,14 @@ export default {
     }
   },
 
-  computed: {
-    img() {
-      return this.variants[this.chosenVariant].img
-    },
-    title() {
-      return this.brand + ' ' + this.product
-    },
-    inventory() {
-      return this.variants[this.chosenVariant].inventory
-    },
-    onSale() {
-      return this.brand === "Dan's"
-    }
-  },
-
   methods: {
-    addToCart() {
-      this.cart++
-      this.inventory--
+    addToCart(id) {
+      console.log('Added ' + id)
+      this.cart.push(id)
     },
-    removeFromCart() {
-      this.cart--
-      this.inventory++
-    },
-    chooseVariant(id) {
-      this.chosenVariant = id
-    },
-    chooseSize(size) {
-      this.chosenSize = size
+    removeFromCart(id) {
+      console.log('Removed ' + id)
+      this.cart.pop(id)
     }
   }
 }

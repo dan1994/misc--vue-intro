@@ -81,9 +81,16 @@
 
 <script>
 export default {
-  props: [
-    'pO', 'premium'
-  ],
+  props: {
+    'pO': {
+      'type': Object,
+      'default': {}
+    },
+    'premium': {
+      'type': Boolean,
+      'default': false
+    }
+  },
 
   data() {
     // Add a local cart property to each variant
@@ -124,10 +131,12 @@ export default {
     addToCart() {
       this.variants[this.chosenVariant].cart++
       this.variants[this.chosenVariant].inventory--
+      this.$emit('addToCart', this.pO.baseId.toString() + this.chosenVariant.toString())
     },
     removeFromCart() {
       this.variants[this.chosenVariant].cart--
       this.variants[this.chosenVariant].inventory++
+      this.$emit('removeFromCart', this.pO.baseId.toString() + this.chosenVariant.toString())
     },
     chooseVariant(id) {
       this.chosenVariant = id
