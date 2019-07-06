@@ -2,9 +2,9 @@
   <div>
     <b-container fluid>
       <b-row>
+        <!-- Products -->
         <b-col sm="11">
           <Product :pO="productObj" :premium="true" @addToCart="addToCart" @removeFromCart="removeFromCart" />
-          <Product :pO="productObj" :premium="false" @addToCart="addToCart" @removeFromCart="removeFromCart" />
         </b-col>
         <!-- Cart -->
         <b-col sm="1">

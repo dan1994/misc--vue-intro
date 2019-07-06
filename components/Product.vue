@@ -75,12 +75,18 @@
           </b-jumbotron>
         </b-col>
       </b-row>
+      <ProductReview />
     </b-container>
   </div>
 </template>
 
 <script>
+import ProductReview from '~/components/ProductReview'
+
 export default {
+  components: {
+    ProductReview
+  },
   props: {
     'pO': {
       'type': Object,

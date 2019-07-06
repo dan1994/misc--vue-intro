@@ -18,6 +18,7 @@ module.exports = {
     'keyword-spacing': 'off',
     'no-var': 'off',
     'no-console': 'off',
-    'vue/attribute-hyphenation': 'off'
+    'vue/attribute-hyphenation': 'off',
+    'no-unused-vars': 'off'
   }
 }
