@@ -79,7 +79,15 @@
           </b-jumbotron>
         </b-col>
       </b-row>
-      <ProductReview />
+
+      <ProductReview @submitReview="submitReview" />
+
+      <b-jumbotron lead="Reviews">
+        <p v-if="reviews.length === 0">No reviews yet</p>
+        <b-card v-else v-for="review in reviews" :key="review.length">
+          {{ review }}
+        </b-card>
+      </b-jumbotron>
     </b-container>
   </div>
 </template>
@@ -120,7 +128,8 @@ export default {
       'chosenVariant': 0,
       'chosenSize': 'Medium',
       'variants': variants,
-      'showCollapse': false
+      'showCollapse': false,
+      'reviews': []
     }
   },
 
@@ -161,6 +170,9 @@ export default {
     },
     chooseSize(size) {
       this.chosenSize = size
+    },
+    submitReview(review) {
+      this.reviews.push(review)
     }
   }
 }

@@ -43,8 +43,7 @@ export default {
       this.review.rating = rating
     },
     onSubmit() {
-      this.$emit('submitReview', this.review)
-      alert(JSON.stringify(this.review))
+      this.$emit('submitReview', JSON.parse(JSON.stringify(this.review)))
       this.review.title = ''
       this.review.text = ''
       this.resetRating = true
