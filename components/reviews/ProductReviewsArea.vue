@@ -1,7 +1,10 @@
 <template>
   <div>
-    <WriteProductReview @submitReview="submitReview" />
-    <ProductReviews :reviews="reviews" />
+    <b-nav tabs>
+      <b-nav-item v-for="(tab, i) in tabs" :key="i" :active="activeTab === i" @click="activeTab = i">{{ tab }}</b-nav-item>
+    </b-nav>
+    <WriteProductReview v-if="activeTab === 0" @submitReview="submitReview" />
+    <ProductReviews v-else-if="activeTab === 1" :reviews="reviews" />
   </div>
 </template>
 
@@ -17,7 +20,12 @@ export default {
 
   data() {
     return {
-      reviews: []
+      reviews: [],
+      tabs: [
+        'Write a Review',
+        'Reviews'
+      ],
+      activeTab: 0
     }
   },
 
