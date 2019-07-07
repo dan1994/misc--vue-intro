@@ -2,7 +2,7 @@
   <div>
     <b-jumbotron header="Reviews" lead="Here you can find other customers' reviews">
       <p v-if="reviews.length === 0">No reviews yet</p>
-      <b-card v-else v-for="review in reviews" :key="review.length" :title="review.title">
+      <b-card v-for="review in reviews" v-else :key="review.length" :title="review.title">
         <p>Rating: {{ review.rating }}</p>
         <p v-if="review.recomended">Recomended by the customer :)</p>
         <p v-else>Not recomended by the customer :(</p>
