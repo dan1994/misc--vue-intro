@@ -5,7 +5,14 @@
         <ProductImg :product="pO.product" :img="img" />
       </b-col>
       <b-col sm="8">
-        <ProductTextualData :pO="pO" :premium="premium" @chooseVariant="chooseVariant" @addToCart="addToCart" @removeFromCart="removeFromCart" />
+        <ProductTextualData
+          :pO="pO"
+          :premium="premium"
+          :chosenVariant="chosenVariant"
+          @chooseVariant="chooseVariant"
+          @addToCart="addToCart"
+          @removeFromCart="removeFromCart"
+        />
       </b-col>
     </b-row>
   </div>
