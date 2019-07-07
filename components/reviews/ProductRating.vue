@@ -4,8 +4,8 @@
       v-for="i in [0, 1, 2, 3, 4]"
       :key="i"
       :icon="[solid[i], 'star']"
-      @mouseover="ratingPreview = i + 1"
-      @mouseleave="ratingPreview = rating"
+      @mouseover="mouseover = i + 1"
+      @mouseleave="mouseover = -1"
       @click="$emit('setRating', i + 1)"
     />
   </div>
@@ -33,8 +33,7 @@ export default {
 
   data() {
     return {
-      ratingPreview: 0,
-      lastRating: 0
+      mouseover: -1
     }
   },
 
@@ -45,12 +44,12 @@ export default {
         solidArr[i] = i < this.ratingPreview ? 'fas' : 'far'
       }
       return solidArr
-    }
-  },
-
-  watch: {
-    rating(r) {
-      this.ratingPreview = r
+    },
+    ratingPreview() {
+      if(this.mouseover !== -1) {
+        return this.mouseover
+      }
+      return this.rating
     }
   }
 }
